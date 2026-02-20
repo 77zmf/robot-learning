@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>融合学习站｜自动驾驶 + 具身智能（黑白简约）</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>融合学习站</h1>
+          <p>自动驾驶 + 具身智能｜三年路线</p>
+        </div>
+      </div>
+
+      <div class="search">
+        <input id="q" placeholder="搜索：IMU / ESKF / MPC / FAST-LIO / Isaac..." />
+      </div>
+      <div class="small muted">快捷键：<span class="kbd">Ctrl</span> + <span class="kbd">K</span> 聚焦搜索</div>
+
+      <div class="navGroup">
+        <div class="navTitle">起步</div>
+        <button class="navItem active" data-page="home">总览与使用说明 <span class="tag">Start</span></button>
+        <button class="navItem" data-page="resources">教材/论文/工具索引 <span class="tag">Index</span></button>
+      </div>
+
+      <div class="navGroup">
+        <div class="navTitle">Year 1｜估计基础</div>
+        <button class="navItem" data-page="y1_m1">M1：旋转与IMU模型 <span class="tag">IMU</span></button>
+        <button class="navItem" data-page="y1_m2">M2：IMU传播（p,v,q,b） <span class="tag">Prop</span></button>
+        <button class="navItem" data-page="y1_m3">M3：ESKF（误差状态） <span class="tag">ESKF</span></button>
+      </div>
+
+      <div class="navGroup">
+        <div class="navTitle">Year 2｜控制/动力学/仿真</div>
+        <button class="navItem" data-page="y2_m1">M7：运动学（FK/IK/J） <span class="tag">Kin</span></button>
+        <button class="navItem" data-page="y2_m2">M8：控制入门（PID/LQR） <span class="tag">Ctrl</span></button>
+        <button class="navItem" data-page="y2_m3">M9：MPC/优化 <span class="tag">MPC</span></button>
+        <button class="navItem" data-page="y2_m4">M10：刚体动力学 <span class="tag">Dyn</span></button>
+        <button class="navItem" data-page="y2_m5">M11：仿真平台 <span class="tag">Sim</span></button>
+        <button class="navItem" data-page="y2_m6">M12：腿式估计（InEKF） <span class="tag">Leg</span></button>
+      </div>
+
+      <div class="navGroup">
+        <div class="navTitle">Year 3｜系统/高级/作品集</div>
+        <button class="navItem" data-page="y3_m1">M13：系统工程 <span class="tag">Sys</span></button>
+        <button class="navItem" data-page="y3_m2">M14：高级估计 <span class="tag">Adv</span></button>
+        <button class="navItem" data-page="y3_m3">M15：WBC <span class="tag">WBC</span></button>
+        <button class="navItem" data-page="y3_m4">M16：学习控制（选修） <span class="tag">RL</span></button>
+        <button class="navItem" data-page="y3_m5">M17：作品集/面试 <span class="tag">Career</span></button>
+      </div>
+
+      <div class="navGroup">
+        <div class="navTitle">工具</div>
+        <button class="navItem" data-page="tracker">进度与打卡 <span class="tag">Track</span></button>
+      </div>
+
+      <div class="hr"></div>
+      <div class="small muted">
+        勾选进度保存在浏览器本地（localStorage）。<br/>
+        GitHub Pages 部署说明见 README.md
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <h2 id="pageTitle">总览与使用说明</h2>
+        <div class="btnRow">
+          <button class="btn" id="expandAll">展开全部</button>
+          <button class="btn" id="collapseAll">折叠全部</button>
+          <button class="btn danger" id="resetProgress">清空进度</button>
+        </div>
+      </div>
+      <div id="root"></div>
+    </main>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
