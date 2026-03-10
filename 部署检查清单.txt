@@ -1,0 +1,23 @@
+
+✅ GitHub Pages 部署检查清单
+
+上传文件：
+☑️ index.html (主程序，17KB)
+☑️ _config.yml (Jekyll配置)
+☑️ README.md (仓库说明)
+☑️ CNAME (可选，自定义域名)
+
+GitHub设置：
+☑️ 仓库设为 Public
+☑️ Settings → Pages → Source 选择 main分支
+☑️ 等待GitHub Actions部署完成（出现绿色勾号）
+
+验证：
+☑️ 访问 https://你的用户名.github.io/仓库名/
+☑️ 输入测试姓名（如：王磊）检查是否能正常生成
+☑️ 检查手机端访问是否正常
+
+故障排查：
+❓ 如果页面404：检查仓库是否为Public，是否已等待2分钟
+❓ 如果样式错乱：检查_config.yml是否存在（禁用Jekyll）
+❓ 如果无法生成文档：检查浏览器控制台错误（F12）

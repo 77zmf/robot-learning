@@ -4,35 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="中国化学会第35届学术年会第16分会邀请函生成系统">
-    <title>第16分会邀请函生成系统 | 中国化学会第35届学术年会</title>
+    <meta name="author" content="中国化学会化学教育委员会">
+    <title>第16分会邀请函生成系统</title>
+
+    <!-- CDN资源使用国内镜像加速（可选） -->
     <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
     <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
     <style>
         :root {
             --primary: #667eea;
             --primary-dark: #764ba2;
             --success: #48bb78;
             --error: #f56565;
-            --warning: #ed8936;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
             background: white;
             border-radius: 24px;
             box-shadow: 0 25px 80px rgba(0,0,0,0.25);
-            padding: 48px;
+            padding: 48px 40px;
             max-width: 560px;
             width: 100%;
             text-align: center;
@@ -231,14 +235,15 @@
             font-weight: 600;
         }
 
-        .success-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
-
         @media (max-width: 600px) {
             .container { padding: 32px 24px; }
             h1 { font-size: 22px; }
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
         }
     </style>
 </head>
@@ -279,17 +284,22 @@
     </div>
 
     <script>
+        // GitHub Pages优化：确保在子路径下也能正常工作
+        // 当前页面路径检测（用于调试）
+        const currentPath = window.location.pathname;
+        console.log('Current path:', currentPath);
+
         // 授权名单（嵌入前端进行验证）
         const AUTHORIZED_NAMES = ["鲁新玲", "田博文", "于少华", "史绍康", "梁龙", "张斌", "王飞", "朱叶", "毛禹童", "宋占军", "温都苏", "邓秀红", "刘志强", "孙阳", "陈颖", "卢栩亮", "范如本", "李美丽", "钟雪霞", "张鑫", "吴玫", "凌玉", "王敏慧", "林学平", "常永侠", "耿雯景", "汝文强", "张虹利", "邢凯", "陈芳", "徐海", "陈朗昆", "张明婧", "林美希", "吴金平", "姚心宇", "陈雪涛", "沈子稚", "徐锋", "范建凤", "谷金晔", "白钰凡", "任斌", "赵东洋", "张玉华", "张航", "夏海平", "郑燕娴", "马雨佳", "邵伟", "孙鲁闽", "牛牧童", "宋希彤", "郑国", "贾文雨", "袁紫亮", "谢纯", "黄玉玲", "徐学文", "张艳", "吴建军", "朱强", "尉根生", "张兴文", "钱璐洁", "王春宝", "魏锐", "张华毅", "张芙蓉", "莫尊理", "冼小娱", "徐雪峰", "朱恩", "Yuan shiji Yuan", "董曼", "傅世煜", "宁琳", "陈祖云", "胡玉娇", "黄微", "刘丹阳", "王颖霞", "孟莹", "谢梅兰", "黄泰荣", "曹浩颖", "张明", "朱莉", "党彩虹", "王宇慧", "胡博凯", "毕华林", "姜大雨", "佘平平", "徐春秀", "王兴芳", "韩蕊浓", "王进", "林丽榕", "胡绮妙", "郑海鹏", "陈高燕", "杨维成", "康泽伟", "赵彦英", "徐丹凤", "王磊", "吴峰", "曹郁", "吕辅民", "刘思禹", "薛斌", "欧光南", "宋德魁", "叶红", "陈楠", "潘虹", "武秀琪", "郭科", "齐敏", "汤靖雯", "张阳林", "郑军", "陈笑鸽", "党胜男", "张胜", "朱平平", "周娟仿", "陈培亮", "初晓晓", "丁奎岭", "陈霞", "景琳", "林永泰", "刘海欣", "白涛", "李昶", "樊会武", "刘阳", "王艾奇", "刘庆华", "娜依拉·吐尔逊", "刘亚军", "李浩东", "张仿刚", "苏芹", "赵俊皓", "沈艳华", "方国勇", "贺鹏丽", "高元哲", "陈文华", "路达", "白建娥", "蔡宣步", "刘丽", "何冰", "毛可欣", "周全", "张津铭", "周伟伟", "李晓慧", "伍程杰", "孟凡龙", "江俊", "邓子尧", "王莉", "孔玉", "邹辰晨", "徐磊", "李超", "蒋娟", "陈志高", "冯昕", "佟艳秀", "张明明", "孟凡盛", "李浓娇", "宋佳蔚", "阮江芊羽", "张丹凤", "罗思阳", "代逢星", "高奕涵", "刘瑞", "张军", "李发顺", "朱立群", "赵亚楠", "唐雯", "李瑞", "张博伟", "付晓蓓", "张亚苹", "胡婷婷", "周安宁", "王梦瑶", "林旭锋", "刘宽", "何珊", "朱振兴", "郭唱", "尹韩慧", "贾甜甜", "张胜科", "许焕", "陆杨", "金长鹏", "王琦", "刘忠慧", "邹子龙", "药乃特", "何绮婷", "吴佳君", "孙亚红", "魏巧华", "胡海燕", "洪玉泉", "崔克宇", "艾亚凡"];
         const nameSet = new Set(AUTHORIZED_NAMES.map(n => n.trim()));
 
         const input = document.getElementById('nameInput');
         const btn = document.getElementById('generateBtn');
-        const alert = document.getElementById('alert');
+        const alertBox = document.getElementById('alert');
 
         function showAlert(message, type) {
-            alert.textContent = message;
-            alert.className = `alert ${type} show`;
+            alertBox.innerHTML = message.replace(/\n/g, '<br>');
+            alertBox.className = `alert ${type} show`;
 
             if (type === 'error') {
                 input.classList.add('error');
@@ -297,7 +307,7 @@
             }
 
             if (type !== 'info') {
-                setTimeout(() => alert.classList.remove('show'), 6000);
+                setTimeout(() => alertBox.classList.remove('show'), 6000);
             }
         }
 
@@ -314,7 +324,6 @@
         async function generate() {
             const name = input.value.trim();
 
-            // 验证
             if (!name) {
                 showAlert('请输入您的姓名', 'error');
                 input.focus();
@@ -322,147 +331,104 @@
             }
 
             if (!nameSet.has(name)) {
-                showAlert(`抱歉，「${name}」不在本次邀请名单中。\n\n请检查：\n1. 姓名是否与注册时完全一致\n2. 是否有额外空格\n3. 如有疑问请联系魏锐（weirui131@163.com）`, 'error');
+                showAlert(`抱歉，「${name}」不在本次邀请名单中。<br><br>请检查：<br>1. 姓名是否与注册时完全一致<br>2. 是否有额外空格<br>3. 如有疑问请联系魏锐（weirui131@163.com）`, 'error');
                 return;
             }
 
-            // 开始生成
             setLoading(true);
             showAlert('身份验证通过，正在生成Word文档...', 'info');
 
             try {
-                const doc = createDocument(name);
+                const doc = new docx.Document({
+                    sections: [{
+                        properties: {
+                            page: {
+                                margin: {
+                                    top: docx.convertInchesToTwip(1.2),
+                                    right: docx.convertInchesToTwip(1.2),
+                                    bottom: docx.convertInchesToTwip(1.2),
+                                    left: docx.convertInchesToTwip(1.2),
+                                }
+                            }
+                        },
+                        children: [
+                            new docx.Paragraph({
+                                text: "中国化学会第35届学术年会分会邀请函",
+                                heading: docx.HeadingLevel.HEADING_1,
+                                alignment: docx.AlignmentType.CENTER,
+                                spacing: { after: 400 },
+                                bold: true,
+                            }),
+                            new docx.Paragraph({
+                                children: [
+                                    new docx.TextRun({ text: "尊敬的 ", size: 24 }),
+                                    new docx.TextRun({ text: name, size: 24, bold: true, underline: { type: docx.UnderlineType.SINGLE } }),
+                                    new docx.TextRun({ text: " 老师：", size: 24 }),
+                                ],
+                                spacing: { after: 300 },
+                            }),
+                            new docx.Paragraph({
+                                children: [
+                                    new docx.TextRun({ text: "中国化学会第35届学术年会", bold: true, size: 24 }),
+                                    new docx.TextRun({ text: "定于2026年4月10日至14日在重庆科学会堂举行，4月10日报到。", size: 24 }),
+                                ],
+                                spacing: { after: 200 },
+                                alignment: docx.AlignmentType.JUSTIFIED,
+                            }),
+                            new docx.Paragraph({
+                                text: "近年来，中国化学会学术年会规模不断扩大，影响力不断提升，已经成为化学及相关领域门类最全、规模最大、层次最高的综合性学术交流平台。本届年会已确定设置学术分会72个，学术交流形式包括大会特邀报告（PL）、分会主题报告（KN）、分会邀请报告（I）、口头报告（O）、快闪报告（F）和墙报（P）。预计参会规模超过万人。",
+                                size: 24,
+                                spacing: { after: 200 },
+                                alignment: docx.AlignmentType.JUSTIFIED,
+                            }),
+                            new docx.Paragraph({
+                                children: [
+                                    new docx.TextRun({ text: "第16分会 基础化学教育分会", bold: true, size: 24 }),
+                                    new docx.TextRun({ text: "，", size: 24 }),
+                                    new docx.TextRun({ text: "由中国化学会化学教育学科委员会组织，王磊教授和王颖霞教授担任主席", bold: true, size: 24 }),
+                                    new docx.TextRun({ text: "。本分会将聚焦创新素养导向下的基础化学教育改革，重点探讨化学前沿成果与我国化学家研究成果的教育教学转化、创新型实验教学与实验室建设、项目式学习与课程教材开发、创新人才培养背景下的教学评价与教师发展，以及化学科普、化学哲学与文化学的研究与实践等议题，旨在推动基础化学教育的高质量发展与创新实践。", size: 24 }),
+                                    new docx.TextRun({ text: "分会诚邀您参加本次学术年会。", bold: true, size: 24 }),
+                                ],
+                                spacing: { after: 200 },
+                                alignment: docx.AlignmentType.JUSTIFIED,
+                            }),
+                            new docx.Paragraph({
+                                children: [
+                                    new docx.TextRun({ text: "如蒙同意，请您回复邮件告知，并于", size: 24 }),
+                                    new docx.TextRun({ text: "2026年3月5日", bold: true, size: 24 }),
+                                    new docx.TextRun({ text: "前注册参会、上传论文摘要。如需了解中国化学会第35届学术年会的更多信息，请您访问年会官方网站：http://www.chemsoc.org.cn/meeting/35th。", size: 24 }),
+                                ],
+                                spacing: { after: 400 },
+                                alignment: docx.AlignmentType.JUSTIFIED,
+                            }),
+                            new docx.Paragraph({ text: "", spacing: { after: 200 } }),
+                            new docx.Paragraph({ text: "联系人：魏锐", size: 24, spacing: { after: 100 } }),
+                            new docx.Paragraph({ text: "联系方式：weirui131@163.com", size: 24, spacing: { after: 600 } }),
+                            new docx.Paragraph({ text: "中国化学会第35届学术年会", size: 24, alignment: docx.AlignmentType.RIGHT, spacing: { after: 100 } }),
+                            new docx.Paragraph({ text: "中国化学会化学教育委员会", size: 24, alignment: docx.AlignmentType.RIGHT, spacing: { after: 100 } }),
+                            new docx.Paragraph({ text: "2026年3月", size: 24, alignment: docx.AlignmentType.RIGHT }),
+                        ],
+                    }],
+                });
+
                 const blob = await docx.Packer.toBlob(doc);
                 const filename = `中国化学会第35届学术年会邀请函_${name}.docx`;
 
                 saveAs(blob, filename);
-
-                showAlert(`✅ 邀请函已生成并下载！\n文件名：${filename}`, 'success');
+                showAlert(`✅ 邀请函已生成并下载！<br>文件名：${filename}`, 'success');
 
             } catch (err) {
-                console.error(err);
-                showAlert('生成文档时出错，请刷新页面重试或联系技术支持。', 'error');
+                console.error('生成错误:', err);
+                showAlert('生成文档时出错，请刷新页面重试。<br>如果问题持续，请联系技术支持。', 'error');
             } finally {
                 setLoading(false);
             }
         }
 
-        function createDocument(name) {
-            return new docx.Document({
-                sections: [{
-                    properties: {
-                        page: {
-                            margin: {
-                                top: docx.convertInchesToTwip(1.2),
-                                right: docx.convertInchesToTwip(1.2),
-                                bottom: docx.convertInchesToTwip(1.2),
-                                left: docx.convertInchesToTwip(1.2),
-                            }
-                        }
-                    },
-                    children: [
-                        new docx.Paragraph({
-                            text: "中国化学会第35届学术年会分会邀请函",
-                            heading: docx.HeadingLevel.HEADING_1,
-                            alignment: docx.AlignmentType.CENTER,
-                            spacing: { after: 400 },
-                            bold: true,
-                            size: 32,
-                        }),
-
-                        new docx.Paragraph({
-                            children: [
-                                new docx.TextRun({ text: "尊敬的 ", size: 24 }),
-                                new docx.TextRun({ 
-                                    text: name, 
-                                    size: 24, 
-                                    bold: true,
-                                    underline: { type: docx.UnderlineType.SINGLE }
-                                }),
-                                new docx.TextRun({ text: " 老师：", size: 24 }),
-                            ],
-                            spacing: { after: 300 },
-                        }),
-
-                        new docx.Paragraph({
-                            children: [
-                                new docx.TextRun({ text: "中国化学会第35届学术年会", bold: true, size: 24 }),
-                                new docx.TextRun({ text: "定于2026年4月10日至14日在重庆科学会堂举行，4月10日报到。", size: 24 }),
-                            ],
-                            spacing: { after: 200 },
-                            alignment: docx.AlignmentType.JUSTIFIED,
-                        }),
-
-                        new docx.Paragraph({
-                            text: "近年来，中国化学会学术年会规模不断扩大，影响力不断提升，已经成为化学及相关领域门类最全、规模最大、层次最高的综合性学术交流平台。本届年会已确定设置学术分会72个，学术交流形式包括大会特邀报告（PL）、分会主题报告（KN）、分会邀请报告（I）、口头报告（O）、快闪报告（F）和墙报（P）。预计参会规模超过万人。",
-                            size: 24,
-                            spacing: { after: 200 },
-                            alignment: docx.AlignmentType.JUSTIFIED,
-                        }),
-
-                        new docx.Paragraph({
-                            children: [
-                                new docx.TextRun({ text: "第16分会 基础化学教育分会", bold: true, size: 24 }),
-                                new docx.TextRun({ text: "，", size: 24 }),
-                                new docx.TextRun({ text: "由中国化学会化学教育学科委员会组织，王磊教授和王颖霞教授担任主席", bold: true, size: 24 }),
-                                new docx.TextRun({ text: "。本分会将聚焦创新素养导向下的基础化学教育改革，重点探讨化学前沿成果与我国化学家研究成果的教育教学转化、创新型实验教学与实验室建设、项目式学习与课程教材开发、创新人才培养背景下的教学评价与教师发展，以及化学科普、化学哲学与文化学的研究与实践等议题，旨在推动基础化学教育的高质量发展与创新实践。", size: 24 }),
-                                new docx.TextRun({ text: "分会诚邀您参加本次学术年会。", bold: true, size: 24 }),
-                            ],
-                            spacing: { after: 200 },
-                            alignment: docx.AlignmentType.JUSTIFIED,
-                        }),
-
-                        new docx.Paragraph({
-                            children: [
-                                new docx.TextRun({ text: "如蒙同意，请您回复邮件告知，并于", size: 24 }),
-                                new docx.TextRun({ text: "2026年3月5日", bold: true, size: 24 }),
-                                new docx.TextRun({ text: "前注册参会、上传论文摘要。如需了解中国化学会第35届学术年会的更多信息，请您访问年会官方网站：http://www.chemsoc.org.cn/meeting/35th。", size: 24 }),
-                            ],
-                            spacing: { after: 400 },
-                            alignment: docx.AlignmentType.JUSTIFIED,
-                        }),
-
-                        new docx.Paragraph({ text: "", spacing: { after: 200 } }),
-
-                        new docx.Paragraph({
-                            text: "联系人：魏锐",
-                            size: 24,
-                            spacing: { after: 100 },
-                        }),
-                        new docx.Paragraph({
-                            text: "联系方式：weirui131@163.com",
-                            size: 24,
-                            spacing: { after: 600 },
-                        }),
-
-                        new docx.Paragraph({
-                            text: "中国化学会第35届学术年会",
-                            size: 24,
-                            alignment: docx.AlignmentType.RIGHT,
-                            spacing: { after: 100 },
-                        }),
-                        new docx.Paragraph({
-                            text: "中国化学会化学教育委员会",
-                            size: 24,
-                            alignment: docx.AlignmentType.RIGHT,
-                            spacing: { after: 100 },
-                        }),
-                        new docx.Paragraph({
-                            text: "2026年3月",
-                            size: 24,
-                            alignment: docx.AlignmentType.RIGHT,
-                        }),
-                    ],
-                }],
-            });
-        }
-
-        // 回车键提交
         input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') generate();
         });
 
-        // 输入时清除错误状态
         input.addEventListener('input', () => {
             input.classList.remove('error');
         });

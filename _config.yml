@@ -1,0 +1,14 @@
+# GitHub Pages Configuration
+# 禁用Jekyll处理，确保纯静态HTML正常工作
+theme: null
+plugins: []
+
+# 站点信息（可选）
+title: 第16分会邀请函生成系统
+description: 中国化学会第35届学术年会基础化学教育分会邀请函生成系统
+author: 中国化学会化学教育委员会
+
+# 排除文件（可选）
+exclude:
+  - README.md
+  - .gitignore
